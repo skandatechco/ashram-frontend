@@ -2,8 +2,7 @@
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import "@fullcalendar/core/index.css";
-import "@fullcalendar/daygrid/index.css";
+// Styles are temporarily omitted to avoid build issues with CSS imports under Turbopack.
 
 interface EventAttributes {
   title: string;
