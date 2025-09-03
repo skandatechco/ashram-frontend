@@ -27,7 +27,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* Global header */}
+        {/* eslint-disable-next-line @next/next/no-head-element */}
+        <div className="min-h-screen grid grid-rows-[auto_1fr]">
+          {/* Header */}
+          {/* @ts-expect-error Server Component default */}
+          {require("@/src/components/Header").default()}
+          {/* Main content */}
+          <main className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-6 sm:py-8">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
