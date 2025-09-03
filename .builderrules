@@ -1,0 +1,200 @@
+Product Requirements Document (PRD)
+
+Project: Skandasramam.com
+Version: 2.1
+Date: September 03, 2025
+Document Owner: Product Team
+Status: Draft
+
+1. Executive Summary
+
+Vision Statement:
+To create a digital spiritual hub that connects devotees worldwide with timeless traditions, making ashram experiences accessible, inclusive, and modern while preserving their sanctity.
+
+Problem Statement:
+
+Traditional ashrams struggle with limited digital presence.
+
+Manual booking processes create friction for devotees.
+
+No centralized source for event schedules or poojas.
+
+Difficulty managing capacity and resources.
+
+Solution Overview:
+Ashram Fullstack is a comprehensive web application to:
+
+Provide intuitive event discovery and booking.
+
+Enable digital spiritual calendar management.
+
+Create seamless devotee experience with reminders & follow-ups.
+
+Empower administrators with robust back-office tools.
+
+Market Context:
+India has ~500M spiritual participants annually, but <10% have access to online booking or event info. Skandasramam.com aims to bridge this digital gap.
+
+2. Product Goals & Success Metrics
+2.1 Primary Goals
+
+Digital Transformation: Modernize ashram operations.
+
+Community Engagement: Increase participation by 40% in 6 months.
+
+Operational Efficiency: Cut manual booking time by 80%.
+
+User Satisfaction: 4.5+ star ratings + NPS > 50 in 3 months.
+
+2.2 Key KPIs
+
+Engagement: Monthly active users, session duration.
+
+Conversion: >85% booking completion, attendance rate.
+
+Technical: Load time <2s, uptime 99.9%.
+
+Business: Revenue per booking, repeat visitor rate, donation conversion.
+
+2.3 Success Criteria
+
+1,000+ registered users in 3 months.
+
+100+ bookings/month by month 6.
+
+Mobile responsiveness: Lighthouse score 95+.
+
+Zero critical security issues.
+
+3. User Personas & Journey
+3.1 Personas
+
+Devotee: 25–65, moderate tech. Wants to discover, book poojas, get reminders.
+
+Administrator: 30–55, basic tech. Wants easy event & resource management.
+
+Casual Visitor: 20–70, browsing info, exploring offerings.
+
+Remote Devotee (NEW): International/NRI, cannot attend physically but wants to sponsor poojas, join livestreams, receive prasad.
+
+Accessibility-First User (NEW): Senior citizen with low vision/hearing, requiring high contrast, large fonts, voice assistance.
+
+3.2 Journey
+
+Discovery: Landing → Browse events/poojas.
+
+Exploration: Details → Calendar → Compare.
+
+Decision: Select event → Review.
+
+Booking: Fill form → (Future: Payment) → Confirmation.
+
+Participation: Reminders → Attend or livestream.
+
+Follow-up: Feedback → Sponsorship → Community engagement.
+
+4. Feature Specifications
+4.1 Frontend (Next.js + Builder.io)
+
+Landing Page (Builder Hero + Feature Blocks): Ashram mission, quick access to events/poojas/calendar, testimonials, location map.
+
+Events Module: Search/filter, infinite scroll, related events, share options.
+
+Poojas Module: Daily/special, significance, availability calendar, sponsorship option.
+
+Booking Widget: Multi-step form, real-time availability, cancellation policy, SMS/Email confirmation.
+
+Future: Payment, group bookings, waitlists, recurring bookings.
+
+Event Calendar: Monthly/weekly/daily view, quick booking, export to Google/Outlook, festival highlighting.
+
+Notifications: Toast + PWA push notifications.
+
+4.2 Backend
+
+APIs: /events, /poojas, /bookings, /users, /notifications.
+
+Database (Postgres/Prisma): Events, poojas, bookings, users, availability, donations, notifications.
+
+Integrations:
+
+Email: SendGrid/AWS SES
+
+SMS: Twilio
+
+Payments: Razorpay/Stripe (Phase 2)
+
+Calendar sync: Google API
+
+Analytics: GA4
+
+5. Technical Architecture
+
+Frontend: Next.js 14, TypeScript, Tailwind CSS, React Query, React Hook Form, Builder.io CMS.
+Backend: Node.js 18+, Express, PostgreSQL, Prisma ORM, Redis cache, Supabase Auth.
+Hosting: Vercel (frontend), Render/AWS (backend), Supabase/AWS RDS (DB).
+Security: JWT auth, role-based access, CSP, HTTPS, rate limiting.
+Performance: CDN for static, image optimization, caching, background jobs, DB pooling.
+
+6. UX & Design
+
+Principles: Simplicity, accessibility, spiritual aesthetics.
+
+Brand: Warm colors, temple motifs, calming typography.
+
+Accessibility: WCAG 2.1 AA, screen reader support, font scaling, voice guidance.
+
+Mobile-first: 320px upwards, touch-friendly.
+
+Localization-ready: Hindi, Sanskrit, Tamil; expandable to regional languages.
+
+7. Testing & QA
+
+Unit: Components, API, utilities.
+
+Integration: API, DB, services.
+
+E2E: User journeys (Playwright).
+
+Accessibility: axe/pa11y audits.
+
+Performance: Lighthouse, k6 load testing.
+
+Resilience: Chaos testing during festival load spikes.
+
+8. Deployment & Ops
+
+Environments: Dev → Staging → Prod.
+
+Process: GitHub Actions CI/CD, zero-downtime deploys, rollback migrations.
+
+Monitoring: Sentry, APM, backups, RTO < 1h, RPO < 15m.
+
+Ops Cost Estimate: $3–5k/month.
+
+9. Roadmap
+
+Phase 1 (Months 1–3): MVP — Core booking, events, poojas, calendar, notifications.
+Phase 2 (Months 4–6): Payments, Admin Dashboard, profiles, donation sponsorship, volunteer-friendly tools.
+Phase 3 (Months 7–12): Multi-language, livestreaming, community forums, advanced analytics.
+Year 2+: Multi-location, AI recommendations, IoT smart capacity, blockchain donation tracking.
+
+10. Risks & Mitigations
+
+Technical: DB scaling → Optimize queries, Redis caching.
+
+Business: Low adoption → SEO, community outreach, unique value prop.
+
+Operational: Key personnel dependency → Cross-training, documentation.
+
+11. Budget & Timeline
+
+Phase 0 Prototype (3–4 weeks): Marketing site + event listings + booking form ($20–30k).
+
+Phase 1–3 Total: $200–270k (as per v2.0).
+
+Resources: Full-stack dev, frontend dev, backend dev, UI/UX, QA (part-time), PM.
+
+12. Conclusion
+
+Skandasramam.com is not just a booking engine but a spiritual digital ecosystem. By combining modern UX, inclusive design, and robust backend, it will strengthen community bonds, improve access, and enable global participation in ashram traditions.
