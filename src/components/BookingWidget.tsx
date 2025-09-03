@@ -19,14 +19,8 @@ export default function BookingWidget({ eventType }: { eventType: string }) {
   }, []);
 
   return (
-    <Cal
-      calLink={eventType}
-      style={{
-        width: "100%",
-        height: "100%",
-        overflow: "scroll",
-      }}
-    />
+    <div className="w-full h-full overflow-auto">
+      <Cal calLink={eventType} />
+    </div>
   );
 }
-    
