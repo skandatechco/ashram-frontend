@@ -47,7 +47,7 @@ export default async function EventsPage() {
                       </p>
                     </div>
                     <a
-                      href="#booking"
+                      href="/booking#booking"
                       className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors px-3 py-1.5 hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] text-sm"
                     >
                       Book
