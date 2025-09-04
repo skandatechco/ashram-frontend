@@ -2,8 +2,6 @@
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import "@fullcalendar/core/index.css";
-import "@fullcalendar/daygrid/index.css";
 
 interface EventAttributes {
   title: string;
