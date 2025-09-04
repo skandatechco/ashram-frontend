@@ -10,7 +10,12 @@ export async function fetchFromStrapi(endpoint: string) {
   });
 
   if (!res.ok) {
-    throw new Error('Failed to fetch');
+    let detail = '';
+    try {
+      const text = await res.text();
+      detail = text?.slice(0, 300) || '';
+    } catch {}
+    throw new Error(`Strapi request failed (${res.status} ${res.statusText}) ${detail}`.trim());
   }
 
   return res.json();
