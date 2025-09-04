@@ -1,6 +1,10 @@
 import { fetchFromStrapi } from "@/src/lib/api";
+import { hasSanityEnv } from "@/src/lib/sanity";
+import { fetchPoojasFromSanity } from "@/src/lib/fetchers";
 
-function hasEnv() {
+export const revalidate = 60;
+
+function hasStrapi() {
   return typeof process.env.STRAPI_URL === "string" && process.env.STRAPI_URL.length > 0;
 }
 
@@ -8,15 +12,27 @@ export default async function PoojasPage() {
   let poojas: any[] = [];
   let error: string | null = null;
 
-  if (hasEnv()) {
+  if (hasSanityEnv()) {
+    try {
+      const sanityPoojas = await fetchPoojasFromSanity();
+      poojas = sanityPoojas.map((p) => ({
+        attributes: {
+          Text: p.title ?? "Pooja",
+          Number: p.number ?? "",
+        },
+      }));
+    } catch (e) {
+      error = "Unable to load poojas from Sanity. Please verify Sanity config.";
+    }
+  } else if (hasStrapi()) {
     try {
       const { data } = await fetchFromStrapi("poojas?populate=*");
       poojas = Array.isArray(data) ? data : [];
     } catch (e) {
-      error = "Unable to load poojas. Please verify STRAPI_URL.";
+      error = "Unable to load poojas from Strapi. Please verify STRAPI_URL.";
     }
   } else {
-    error = "STRAPI_URL is not configured yet.";
+    error = "No content source configured. Add Sanity or set STRAPI_URL.";
   }
 
   return (
@@ -29,8 +45,8 @@ export default async function PoojasPage() {
       )}
       {poojas.length > 0 && (
         <ul className="rounded-lg border border-black/[.08] dark:border-white/[.145] divide-y divide-black/[.08] dark:divide-white/[.145]">
-          {poojas.map((pooja: any) => (
-            <li key={pooja.id} className="p-4">
+          {poojas.map((pooja: any, idx: number) => (
+            <li key={pooja.id ?? idx} className="p-4">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="font-medium">{pooja?.attributes?.Text ?? "Pooja"}</p>
