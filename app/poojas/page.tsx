@@ -1,4 +1,4 @@
-import { fetchFromStrapi } from "@/src/lib/api";
+import { fetchFromStrapi, getStrapiEndpoint } from "@/src/lib/api";
 import { hasSanityEnv } from "@/src/lib/sanity";
 import { fetchPoojasFromSanity } from "@/src/lib/fetchers";
 
@@ -14,7 +14,7 @@ export default async function PoojasPage() {
 
   if (hasStrapi()) {
     try {
-      const { data } = await fetchFromStrapi("poojas?populate=*");
+      const { data } = await fetchFromStrapi(`${getStrapiEndpoint('poojas')}?populate=*`);
       poojas = Array.isArray(data) ? data : [];
     } catch (e: any) {
       error = e?.message || "Unable to load poojas from Strapi. Please verify STRAPI_URL.";
