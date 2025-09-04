@@ -1,5 +1,5 @@
 import EventCalendar from "@/src/components/EventCalendar";
-import { fetchFromStrapi } from "@/src/lib/api";
+import { fetchFromStrapi, getStrapiEndpoint } from "@/src/lib/api";
 import { hasSanityEnv } from "@/src/lib/sanity";
 import { fetchEventsFromSanity } from "@/src/lib/fetchers";
 
@@ -15,7 +15,7 @@ export default async function EventsPage() {
 
   if (hasStrapi()) {
     try {
-      const { data } = await fetchFromStrapi("events?populate=*");
+      const { data } = await fetchFromStrapi(`${getStrapiEndpoint('events')}?populate=*`);
       events = Array.isArray(data) ? data : [];
     } catch (e: any) {
       error = e?.message || "Unable to load events from Strapi. Please verify STRAPI_URL.";
