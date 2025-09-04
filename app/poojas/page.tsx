@@ -16,8 +16,8 @@ export default async function PoojasPage() {
     try {
       const { data } = await fetchFromStrapi("poojas?populate=*");
       poojas = Array.isArray(data) ? data : [];
-    } catch (e) {
-      error = "Unable to load poojas from Strapi. Please verify STRAPI_URL.";
+    } catch (e: any) {
+      error = e?.message || "Unable to load poojas from Strapi. Please verify STRAPI_URL.";
     }
   } else if (hasSanityEnv()) {
     try {
@@ -28,8 +28,8 @@ export default async function PoojasPage() {
           Number: p.number ?? "",
         },
       }));
-    } catch (e) {
-      error = "Unable to load poojas from Sanity. Please verify Sanity config.";
+    } catch (e: any) {
+      error = e?.message || "Unable to load poojas from Sanity. Please verify Sanity config.";
     }
   } else {
     error = "No content source configured. Add Sanity or set STRAPI_URL.";
