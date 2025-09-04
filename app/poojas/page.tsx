@@ -12,7 +12,14 @@ export default async function PoojasPage() {
   let poojas: any[] = [];
   let error: string | null = null;
 
-  if (hasSanityEnv()) {
+  if (hasStrapi()) {
+    try {
+      const { data } = await fetchFromStrapi("poojas?populate=*");
+      poojas = Array.isArray(data) ? data : [];
+    } catch (e) {
+      error = "Unable to load poojas from Strapi. Please verify STRAPI_URL.";
+    }
+  } else if (hasSanityEnv()) {
     try {
       const sanityPoojas = await fetchPoojasFromSanity();
       poojas = sanityPoojas.map((p) => ({
@@ -23,13 +30,6 @@ export default async function PoojasPage() {
       }));
     } catch (e) {
       error = "Unable to load poojas from Sanity. Please verify Sanity config.";
-    }
-  } else if (hasStrapi()) {
-    try {
-      const { data } = await fetchFromStrapi("poojas?populate=*");
-      poojas = Array.isArray(data) ? data : [];
-    } catch (e) {
-      error = "Unable to load poojas from Strapi. Please verify STRAPI_URL.";
     }
   } else {
     error = "No content source configured. Add Sanity or set STRAPI_URL.";
