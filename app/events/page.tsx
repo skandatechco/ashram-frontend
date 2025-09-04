@@ -13,7 +13,14 @@ export default async function EventsPage() {
   let events: any[] = [];
   let error: string | null = null;
 
-  if (hasSanityEnv()) {
+  if (hasStrapi()) {
+    try {
+      const { data } = await fetchFromStrapi("events?populate=*");
+      events = Array.isArray(data) ? data : [];
+    } catch (e) {
+      error = "Unable to load events from Strapi. Please verify STRAPI_URL.";
+    }
+  } else if (hasSanityEnv()) {
     try {
       const sanityEvents = await fetchEventsFromSanity();
       events = sanityEvents.map((e) => ({
@@ -25,13 +32,6 @@ export default async function EventsPage() {
       }));
     } catch (e) {
       error = "Unable to load events from Sanity. Please verify Sanity config.";
-    }
-  } else if (hasStrapi()) {
-    try {
-      const { data } = await fetchFromStrapi("events?populate=*");
-      events = Array.isArray(data) ? data : [];
-    } catch (e) {
-      error = "Unable to load events from Strapi. Please verify STRAPI_URL.";
     }
   } else {
     error = "No content source configured. Add Sanity or set STRAPI_URL.";
